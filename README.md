@@ -1,105 +1,28 @@
-# P5.js Starter template
+# Antigone: Seven Stanzas.
 
-Features::
-- [vite](https://vite.dev/) as a development server + build tooling
-    - HMR for automatic refreshing of changes on save
-- TypeScript for type-safe(r) usage of p5.js, depending upon the hard work of [`@types/p5`](https://www.npmjs.com/package/@types/p5)
-- Some bundling optimizations to separate p5.js package as a stable chunk
-- TailwindCSS if you would like to use that to style your HTML elements outside of your p5.js canvas.
+1.  Shaft of the sun, fairest light of all that have dawned on Thebes of the seven gates, you have shone forth at last, eye of golden day, advancing over Dirce's streams! [105] You have goaded with a sharper bit the warrior of the white shield, who came from Argos in full armor, driving him to headlong retreat.
 
-## Using the template
 
-1. Copy the template to your github.
-1. Run `pnpm install`
-1. Start coding in `main.ts`!
+2.  He set out against our land because of the strife-filled claims of Polyneices, and like a screaming eagle he flew over into our land, covered by his snow-white wing, with a mass of weapons and crested helmets.
 
-### Changing package managers
+3.  He paused above our dwellings; he gaped around our sevenfold portals with spears thirsting for blood; but he left before his jaws were ever glutted with our gore, or before the Fire-god's pine-fed flame had seized our crown of towers. So fierce was the crash of battle swelling about his back, a match too hard to win for the rival of the dragon.
 
-Remove `pnpm-lock.yaml`, change/remove the `"packageManager"` field from `package.json`, and replace with a package manager of your choice (npm, yarn, bun, etc.)
+4.  For Zeus detests above all the boasts of a proud tongue. And when he saw them advancing in a swollen flood, arrogant their clanging gold, he dashed with brandished fire one who was already starting to shout victory when he had reached our ramparts.
 
-### Removing Tailwind
+5.  Staggered, he fell to the earth with a crash, torch in hand, a man possessed by the frenzy of the mad attack, who just now was raging against us with the blasts of his tempestuous hate. But his threats did not fare as he had hoped, and to the other enemies mighty Ares dispensed each their own dooms with hard blows, Ares, our mighty ally at the turning-point.
 
-If you have no use for Tailwind, update `vite.config.ts`.
+6.  For the seven captains, stationed against an equal number at the seven gates, left behind their brazen arms in tribute to Zeus the turner of battle—all but the accursed pair who, born of one father and one mother, set against each other their spears, both victorious, and who now share in a common death.
 
-```diff
-import { defineConfig } from "vite";
-- import tailwindcss from "@tailwindcss/vite";
+7.  But since Victory whose name is glory has come to us, smiling in joy equal to the joy of chariot-rich Thebes, let us make for ourselves forgetfulness after the recent wars, and visit all the temples of the gods with night-long dance and song. And may Bacchus, who shakes the earth of Thebes, rule our dancing!
 
-export default defineConfig({
--  plugins: [tailwindcss()],
-});
-```
+## What is this?
 
-and `styles.css`
+A p5.js sketch with some scene-based keyframing and a bit of WebGL, and text from the first chorus of Sophocles' Antigone.  Antigone is a play about the moral necessity of defiance to an unjust state, and is one of if not the earliest work of fiction about tyranny and resistance - it hits hard.  
 
-```diff
-- @import "tailwindcss";
+Three key inspirations for this were: 
+- Anne Carson's adaptation, *Antigonick*, which is remarkable
+- Sean Graney's adaptation from his 12-hour adaptation of every surviving Greek tragedy, *All Our Tragic* (I saw it twice in Chicago)
+- *manifold* by Sophia Wood, who has given me an immense amount of inspiration and pushed me on incorporating text into my work
 
-+ .my-styles {
-+    /* My CSS goes here <3 */
-+ }
-```
-
-## Steps to set this up yourself
-
-If this project becomes out of date, here are the fundamentals behind what is happening:
-
-1. `pnpm create vite` (feel free to use any package manager of your choice)
-1. Create a `Vanilla` project
-1. (optional) Create a `vite.config.ts` file with preferences to build p5 as a separate chunk
-    - Note: we do this the help preserve bandwidth for your users. We assume your application code is going to change more frequently than your P5 version. This helps to avoid users from having to re-download P5.js over and over again.
-    ```ts
-    import { defineConfig } from "vite";
-    import tailwindcss from "@tailwindcss/vite";
-
-    export default defineConfig({
-          build: {
-            rollupOptions: {
-                output: {
-                    manualChunks: {
-                        p5: ["p5"],
-                    },
-                },
-            },
-        },
-    });
-    ```
-1. (optional) Add TailwindCSS
-    - Create a `vite.config.ts` file; add the vite TailwindCSS plugin to your project
-    - Add a `styles.css` file to your project.
-        ```css
-        @import "tailwindcss";
-        ```
-    - Ensure you're adding `styles.css` to your `index.html` or `main.ts` file
-        ```html
-        <link href="/src/styles.css" rel="stylesheet">
-        ```
-        or
-
-        ```ts
-        import "./styles.css"
-        ```
-1. Delete the entirety of the `main.ts` counter boilerplate
-1. Create any mounting node(s) necessary within your `index.html`; this is what p5 will mount its canvas to.
-1. Create a p5 factory function that allows to start p5 in instance mode. All p5 "globals" will be instead attached to this instance, allowing you to utilize and browse all the utility features of p5 without polluting the global scope.
-    ```ts
-    function myP5(p: p5) {
-    // user code goes here
-    Object.assign(p, {
-        preload() {
-            // ...
-        },
-        setup() {
-            // ...
-        },
-        draw() {
-            // ...
-        },
-        } satisfies Pick<typeof p, "preload" | "setup" | "draw">);
-    }
-    ```
-1. Get started building your p5.js work!
-
-# Credits
-
-* `Inconsolata` font included for demonstration purposes; [Inconsolata font license](https://www.fontsquirrel.com/license/Inconsolata).
+The text is from Sir Richard Jebb's 1891 translation, taken from the Perseus Digital Library:
+[https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0186%3Acard%3D100]()
