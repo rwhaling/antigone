@@ -1,4 +1,4 @@
-# Antigone: Seven Stanzas.
+# Antigone: Seven Stanzas
 
 1.  Shaft of the sun, fairest light of all that have dawned on Thebes of the seven gates, you have shone forth at last, eye of golden day, advancing over Dirce's streams! [105] You have goaded with a sharper bit the warrior of the white shield, who came from Argos in full armor, driving him to headlong retreat.
 
