@@ -2,11 +2,6 @@ import p5 from "p5";
 import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { createSketch, numericParameterDefs, initParameterStore, ParameterStore } from "./sketch";
-import { createSketch as createSketch2, numericParameterDefs as numericParameterDefs2, initParameterStore as initParameterStore2, ParameterStore as ParameterStore2 } from "./reflections";
-import { createSketch as createSketch3, numericParameterDefs as numericParameterDefs3, initParameterStore as initParameterStore3, ParameterStore as ParameterStore3 } from "./transparency_test";
-import { createSketch as createSketch4, numericParameterDefs as numericParameterDefs4, initParameterStore as initParameterStore4, ParameterStore as ParameterStore4 } from "./melted_text";
-import { createSketch as createSketch5, numericParameterDefs as numericParameterDefs5, initParameterStore as initParameterStore5, ParameterStore as ParameterStore5 } from "./red_rain";
-import { createSketch as createSketch6, numericParameterDefs as numericParameterDefs6, initParameterStore as initParameterStore6, ParameterStore as ParameterStore6 } from "./white_wing";
 // Define sketch types for organization
 type SketchType = "default";
 
