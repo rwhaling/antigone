@@ -14,7 +14,7 @@ export const numericParameterDefs = {
     "min": 10,
     "max": 5000, 
     "step": 10,
-    "defaultValue": 5000,
+    "defaultValue": 1000,
   },
   "particleForceStrength": {
     "min": 0.01,
@@ -32,7 +32,7 @@ export const numericParameterDefs = {
     "min": 1,
     "max": 5,
     "step": 0.5,
-    "defaultValue": 1.5,
+    "defaultValue": 1,
   },  
   "particleNoiseStrength": {
     "min": 0.0,
@@ -67,8 +67,9 @@ export const numericParameterDefs = {
 };
 
 export const stanzas = [
-  [],
-  [
+  [""],
+  ["Antigone"],
+  [ "", "", 
     "shaft", "of", "the", "sun", "fairest", "light", "of", "all", "that", "have",
     "dawned", "on", "thebes", "of", "the", "seven", "gates", "you", "have", "shone",
     "forth", "at", "last", "eye", "of", "golden", "day", "advancing", "over", "dirce's",
@@ -76,13 +77,13 @@ export const stanzas = [
     "of", "the", "white", "shield", "who", "came", "from", "argos", "in", "full",
     "armor", "driving", "him", "to", "headlong", "retreat"
   ],
-  [
+  [ "", "", 
     "he", "set", "out", "against", "our", "land", "because", "of", "the", "strife-filled",
     "claims", "of", "polyneices", "and", "like", "a", "screaming", "eagle", "he", "flew",
     "over", "into", "our", "land", "covered", "by", "his", "snow-white", "wing", "with",
     "a", "mass", "of", "weapons", "and", "crested", "helmets"
   ],
-  [
+  [ "", "", 
     "he", "paused", "above", "our", "dwellings", "he", "gaped", "around", "our", "sevenfold",
     "portals", "with", "spears", "thirsting", "for", "blood", "but", "he", "left", "before",
     "his", "jaws", "were", "ever", "glutted", "with", "our", "gore", "or", "before",
@@ -91,7 +92,14 @@ export const stanzas = [
     "back", "a", "match", "too", "hard", "to", "win", "for", "the", "rival",
     "of", "the", "dragon"
   ],
-  [
+  [ "", "", 
+    "for", "zeus", "detests", "above", "all", "the", "boasts", "of", "a", "proud",
+    "tongue", "and", "when", "he", "saw", "them", "advancing", "in", "a", "swollen",
+    "flood", "arrogant", "their", "clanging", "gold", "he", "dashed", "with", "brandished", "fire",
+    "one", "who", "was", "already", "starting", "to", "shout", "victory", "when", "he",
+    "had", "reached", "our", "ramparts"
+  ],
+  [ "", "", 
     "staggered", "he", "fell", "to", "the", "earth", "with", "a", "crash", "torch",
     "in", "hand", "a", "man", "possessed", "by", "the", "frenzy", "of", "the",
     "mad", "attack", "who", "just", "now", "was", "raging", "against", "us", "with",
@@ -100,14 +108,7 @@ export const stanzas = [
     "enemies", "mighty", "ares", "dispensed", "each", "their", "own", "dooms", "with", "hard",
     "blows", "ares", "our", "mighty", "ally", "at", "the", "turning-point"
   ],
-  [
-    "for", "zeus", "detests", "above", "all", "the", "boasts", "of", "a", "proud",
-    "tongue", "and", "when", "he", "saw", "them", "advancing", "in", "a", "swollen",
-    "flood", "arrogant", "their", "clanging", "gold", "he", "dashed", "with", "brandished", "fire",
-    "one", "who", "was", "already", "starting", "to", "shout", "victory", "when", "he",
-    "had", "reached", "our", "ramparts"
-  ],
-  [
+  [ "", "", 
     "for", "the", "seven", "captains", "stationed", "against", "an", "equal", "number", "at",
     "the", "seven", "gates", "left", "behind", "their", "brazen", "arms", "in", "tribute",
     "to", "zeus", "the", "turner", "of", "battle", "all", "but", "the", "accursed",
@@ -115,14 +116,15 @@ export const stanzas = [
     "against", "each", "other", "their", "spears", "both", "victorious", "and", "who", "now",
     "share", "in", "a", "common", "death"
   ],
-  [
+  [ "", "", 
     "but", "since", "victory", "whose", "name", "is", "glory", "has", "come", "to",
     "us", "smiling", "in", "joy", "equal", "to", "the", "joy", "of", "chariot-rich",
     "thebes", "let", "us", "make", "for", "ourselves", "forgetfulness", "after", "the", "recent",
     "wars", "and", "visit", "all", "the", "temples", "of", "the", "gods", "with",
     "night-long", "dance", "and", "song", "and", "may", "bacchus", "who", "shakes", "the",
     "earth", "of", "thebes", "rule", "our", "dancing"
-  ]
+  ],
+  [""]
 ];
 
 // This type represents the parameter store structure
@@ -170,21 +172,27 @@ export function createSketch(parameterStore: ParameterStore) {
     let blurShader;
     let fadeShader;
     let stanzaIndex = 0;
- 
+    let lineWeight = parameterStore.particleTrailWeight;
+    let noiseStrength = parameterStore.particleNoiseStrength;
+    let noiseOffset = parameterStore.particleNoiseOffset;
+    let particleCount = parameterStore.particleMaxCount;
+    let forceClearWords = false;
     
     // Add state management
     let currentState = -1;
     let stanzaPosition = -1;
     const states = [
-      { backgroundColor: "#2B2B28", foregroundColor: "#F8F8F8", textColor: "#E3B04B", stanza: 1 }, // white/gold - first stanza
-      { backgroundColor: "#3E1414", foregroundColor: "#E3B04B", textColor: "#F8F8F8", stanza: 2 }, // white text, gold foreground, red background - second stanza
-      { backgroundColor: "#2B2B28", foregroundColor: "#E3B04B", textColor: "#2B2B28", stanza: 3 }, // dark red/gold/black text - third stanza
-      { backgroundColor: "#B08000", foregroundColor: "#A31D1D", textColor: "#570F0F", stanza: 4 }, // gold background, red foreground - fourth stanza
-      { backgroundColor: "#3E1414", foregroundColor: "#D63447", textColor: "#3E1414", stanza: 5 }, // dark red/light red - fifth stanza
-      { backgroundColor: "#2B2B28", foregroundColor: "#A31D1D", textColor: "#2A1A5E", stanza: 6 }, // dark red/black/purple - sixth stanza  
-      { backgroundColor: "#2A1A5E", foregroundColor: "#D63447", textColor: "#E3B04B", stanza: 7 }, // nice yellow/purple/brighter red - last stanza
 
-    ];
+      { backgroundColor: "#2B2B28", foregroundColor: "#F8F8F8", textColor: "#E3B04B", stanza: 1, lineWeight: 1.5, particleCount: 5000, noiseStrength: 3.0, noiseOffset: 0, title: "Antigone" }, // intro
+      { backgroundColor: "#2B2B28", foregroundColor: "#F8F8F8", textColor: "#E3B04B", stanza: 2, lineWeight: 1.5, particleCount: 5000, noiseStrength: 3.0, noiseOffset: 0, title: "Stanza 1" }, // white/gold - first stanza
+      { backgroundColor: "#3E1414", foregroundColor: "#E3B04B", textColor: "#F8F8F8", stanza: 3, lineWeight: 1, particleCount: 5000, noiseStrength: 3.0, noiseOffset: 4.5, title: "Stanza 2"}, // white text, gold foreground, red background - second stanza
+      { backgroundColor: "#2B2B28", foregroundColor: "#E3B04B", textColor: "#2B2B28", stanza: 4, lineWeight: 1, particleCount: 5000, noiseStrength: 13.0, noiseOffset: 4.6, title: "Stanza 3"}, // dark red/gold/black text - third stanza
+      { backgroundColor: "#B08000", foregroundColor: "#A31D1D", textColor: "#570F0F", stanza: 5, lineWeight: 1.5, particleCount: 5000, noiseStrength: 5.0, noiseOffset: 0.5, title: "Stanza 4"}, // gold background, red foreground - fourth stanza
+      { backgroundColor: "#3E1414", foregroundColor: "#D63447", textColor: "#3E1414", stanza: 6, lineWeight: 1.5, particleCount: 5000, noiseStrength: 13.0, noiseOffset: 4.6, title: "Stanza 5"}, // dark red/light red - fifth stanza
+      { backgroundColor: "#2B2B28", foregroundColor: "#A31D1D", textColor: "#2A1A5E", stanza: 7, lineWeight: 2, particleCount: 5000, noiseStrength: 13.0, noiseOffset: 4.6, title: "Stanza 6" }, // dark red/black/purple - sixth stanza  
+      { backgroundColor: "#2A1A5E", foregroundColor: "#D63447", textColor: "#E3B04B", stanza: 8, lineWeight: 1.5, particleCount: 5000, noiseStrength: 3.0, noiseOffset: 0.35, title: "Stanza 7" }, // nice yellow/purple/brighter red - last stanza
+      { backgroundColor: "#2A1A5E", foregroundColor: "#D63447", textColor: "#E3B04B", stanza: 9, lineWeight: 1, particleCount: 5000, noiseStrength: 13.0, noiseOffset: 4.6, title: "fin" }, // nice yellow/purple/brighter red - outro
+  ];
 
     // let backgroundColor = "#2B2B28";
     // let foregroundColor = "#A31D1D";
@@ -200,6 +208,11 @@ export function createSketch(parameterStore: ParameterStore) {
       textColor = state.textColor;
       stanzaIndex = state.stanza;
       stanzaPosition = -1;
+      lineWeight = state.lineWeight;
+      noiseStrength = state.noiseStrength;
+      noiseOffset = state.noiseOffset;
+      particleCount = state.particleCount;
+      forceClearWords = true;
     };
 
     interface SimpleParticle {
@@ -341,6 +354,7 @@ export function createSketch(parameterStore: ParameterStore) {
     p.setup = function() {
       // Keep the fixed dimensions - this is the actual size of your visualization
       p.createCanvas(1200, 600, p.P2D);
+      p.frameRate(30);
       // p.pixelDensity(1);
       foreground = p.createGraphics(1200, 600, p.P2D);
       foreground.pixelDensity(1);
@@ -391,17 +405,23 @@ export function createSketch(parameterStore: ParameterStore) {
       // p.translate(-p.width/2, -p.height/2);
 
       // let drawFrameInterval = Math.ceil(frameRate * currentParams.timeMultiplier);
-      let drawFrameInterval = 60;
+      let drawFrameInterval = 20;
       
       if (frameCount % drawFrameInterval == 0) {
-        stanzaPosition++;
-        let clearProb = wordCount / parameterStore.maxWordCount;
-        if (p.random() < clearProb) {
-          foreground.background("#000000FF");
-          wordCount = 0;
-        }
         let poemWords = stanzas[stanzaIndex];
+        stanzaPosition++;
         if (poemWords.length > 0 && stanzaPosition < poemWords.length) {
+          let clearProb = wordCount / parameterStore.maxWordCount;
+          if (p.random() < clearProb) {
+            foreground.background("#000000FF");
+            wordCount = 0;
+          } else if (forceClearWords) {
+            foreground.background("#000000FF");
+            wordCount = 0;
+            forceClearWords = false;
+          }
+  
+
           let wordIndex = stanzaPosition;
           let word = poemWords[wordIndex];
           let textSize = parameterStore.textSize;
@@ -442,19 +462,19 @@ export function createSketch(parameterStore: ParameterStore) {
 
       // make sure there are exactly the right number of particles
       // Maximum number of particles - now from parameters
-      while (particles.length > parameterStore.particleMaxCount) {
+      while (particles.length > particleCount) {
         particles.shift(); // Remove oldest particles if we have too many
       }
 
-      while (particles.length < parameterStore.particleMaxCount) {
+      while (particles.length < particleCount) {
         particles.push(createParticle(p.random(0, p.width), p.random(0, p.height)));
       }
 
       // update the particles
       for (let i = 0; i < particles.length; i++) {
         // calculate the angle of the particle
-        let noiseVector = parameterStore.particleNoiseStrength * p.noise(particles[i].pos.x, particles[i].pos.y, currentTime);
-        let angle = parameterStore.particleNoiseOffset + noiseVector * Math.PI;
+        let noiseVector = noiseStrength * p.noise(particles[i].pos.x, particles[i].pos.y, currentTime);
+        let angle = noiseOffset + noiseVector * Math.PI;
 //        let angle = p.map(noiseVector, -1, 1, 0, 2 * Math.PI);
         updateParticle(particles[i], angle);
       }
@@ -481,13 +501,13 @@ export function createSketch(parameterStore: ParameterStore) {
           // p.fill("#FFD500")
           // p.fill("#F95454")
           p.fill(textColor)
-          p.circle(particles[i].pos.x, particles[i].pos.y, 1.5 * parameterStore.particleTrailWeight);
+          p.circle(particles[i].pos.x, particles[i].pos.y, 1.5 * lineWeight);
 
         } else {
           // console.log("drawing NORMAL particle");
           p.fill(foregroundColor);
           // p.fill("#9D1B1B")
-          p.circle(particles[i].pos.x, particles[i].pos.y, parameterStore.particleTrailWeight);
+          p.circle(particles[i].pos.x, particles[i].pos.y, lineWeight);
         // p.stroke("#092734");
         // p.strokeWeight(1);
         // p.line(particles[i].pos.x, particles[i].pos.y, particles[i].prevPos.x, particles[i].prevPos.y);

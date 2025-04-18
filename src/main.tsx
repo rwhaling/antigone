@@ -162,7 +162,7 @@ function TestApp() {
         className="next-sketch-button"
         onClick={cycleSketch}
       >
-        Next Stanza
+        Next
       </button>
 
       {/* Only render the controls panel if showParams is true */}
