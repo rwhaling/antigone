@@ -1,6 +1,6 @@
 # Antigone: Seven Stanzas
 
-1.  Shaft of the sun, fairest light of all that have dawned on Thebes of the seven gates, you have shone forth at last, eye of golden day, advancing over Dirce's streams! [105] You have goaded with a sharper bit the warrior of the white shield, who came from Argos in full armor, driving him to headlong retreat.
+1.  Shaft of the sun, fairest light of all that have dawned on Thebes of the seven gates, you have shone forth at last, eye of golden day, advancing over Dirce's streams! You have goaded with a sharper bit the warrior of the white shield, who came from Argos in full armor, driving him to headlong retreat.
 
 
 2.  He set out against our land because of the strife-filled claims of Polyneices, and like a screaming eagle he flew over into our land, covered by his snow-white wing, with a mass of weapons and crested helmets.
